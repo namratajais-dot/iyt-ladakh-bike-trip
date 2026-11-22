@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Sparkles } from 'lucide-react'
 import EnquiryForm from '../components/EnquiryForm'
-import FaqPanel from '../components/FaqPanel'
+import ThankYou from '../components/ThankYou'
 import logo from '../assets/images/Logo-IYC.png'
 
 // Logos: replace the files in src/assets/images (keep the same file names)
@@ -84,8 +84,8 @@ export default function Hero() {
               ))}
             </ul>
           </div>
-
-          {/* Right: form, then FAQ after submit */}
+         
+          {/* Right: form, then Thank You after submission */}
           <div ref={cardRef} className="relative scroll-mt-4">
             <div className="absolute -left-4 top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-ink lg:flex">
               <span className="h-4 w-1 rounded-full bg-white" />
@@ -96,12 +96,18 @@ export default function Hero() {
                 <motion.div key="form" {...swap}>
                   <EnquiryForm
                     initialValues={lead}
-                    onSuccess={(data) => { setLead(data); goTo('faq') }}
+                    onSuccess={(data) => {
+                      setLead(data)
+                      goTo('thankyou')
+                    }}
                   />
                 </motion.div>
               ) : (
-                <motion.div key="faq" {...swap}>
-                  <FaqPanel name={lead?.name} onBack={() => goTo('form')} />
+                <motion.div key="thankyou" {...swap}>
+                  <ThankYou
+                    name={lead?.name}
+                    onBack={() => goTo('form')}
+                  />
                 </motion.div>
               )}
             </AnimatePresence>
