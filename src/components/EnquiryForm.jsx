@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Send, Users, Route, CalendarDays, CheckCircle2 } from 'lucide-react'
+import { Send, Users, Route, CalendarDays } from 'lucide-react'
 
 const months = [
   'May 2027', 'June 2027', 'July 2027', 'August 2027', 'September 2027', 'Flexible',
@@ -29,15 +28,13 @@ function Field({ label, required, error, children }) {
   )
 }
 
-export default function EnquiryForm() {
-  const [submitted, setSubmitted] = useState(false)
+export default function EnquiryForm({ onSuccess, initialValues }) {
   const {
     register,
     handleSubmit,
     watch,
-    reset,
     formState: { errors, isSubmitting },
-  } = useForm({ defaultValues: { tripType: 'group', budget: 50000 } })
+  } = useForm({ defaultValues: { tripType: 'group', budget: 50000, ...initialValues } })
 
   const tripType = watch('tripType')
   const budget = Number(watch('budget'))
@@ -47,25 +44,7 @@ export default function EnquiryForm() {
     // TODO: replace with a POST to our serverless API (/api/lead) later.
     await new Promise((r) => setTimeout(r, 800))
     console.log('Enquiry:', data)
-    setSubmitted(true)
-  }
-
-  if (submitted) {
-    return (
-      <div className="rounded-3xl bg-white p-10 text-center shadow-2xl">
-        <CheckCircle2 className="mx-auto h-14 w-14 text-brand-600" />
-        <h2 className="mt-4 text-2xl font-bold text-slate-900">We got your details</h2>
-        <p className="mt-2 text-sm text-slate-500">
-          Our trip experts will contact you shortly.
-        </p>
-        <button
-          onClick={() => { reset(); setSubmitted(false) }}
-          className="mt-6 text-sm font-semibold text-brand-700 hover:underline"
-        >
-          Submit another enquiry
-        </button>
-      </div>
-    )
+    onSuccess?.(data)
   }
 
   return (
