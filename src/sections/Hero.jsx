@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Sparkles } from 'lucide-react'
 import EnquiryForm from '../components/EnquiryForm'
 import FaqPanel from '../components/FaqPanel'
+import logo from '../assets/images/Logo-IYC.png'
 
 // Logos: replace the files in src/assets/images (keep the same file names)
 import googleLogo from '../assets/images/google.svg'
@@ -11,8 +12,8 @@ import confidenceLogo from '../assets/images/confidence.svg'
 
 // Placeholder numbers: replace with real figures.
 const highlights = [
-  { logo: googleLogo, alt: 'Google', title: '4.9 Rating', text: '8,500+ verified reviews' },
-  { logo: instagramLogo, alt: 'Instagram', title: '570k+ Community', text: '35k+ happy travellers' },
+  { logo: googleLogo, alt: 'Google', title: '4.9 Rating', text: '850+ verified reviews' },
+  { logo: instagramLogo, alt: 'Instagram', title: '50k+ Community', text: '5k+ happy travellers' },
   { logo: confidenceLogo, alt: 'Secure booking', title: 'Book with Confidence', text: 'Free cancellation · EMI' },
 ]
 
@@ -47,25 +48,23 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1520px] flex-1 flex-col px-5 sm:px-8 lg:px-12 xl:px-16">
-        <header className="border-b border-line py-4 lg:py-5">
-          <span className="text-2xl font-extrabold tracking-tight">
-            IYT<span className="text-brand-400">.</span>
-          </span>
-        </header>
+      <header className="border-b border-line py-4 lg:py-5">
+        <img
+          src={logo}
+          alt="IYC Logo"
+          className="h-14 w-auto object-contain"
+        />
+      </header>
 
         <div className="grid flex-1 content-center gap-10 py-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-start lg:gap-14 lg:py-10 xl:gap-20">
           {/* Left: stays the same on both steps */}
           <div>
-            <h1 className="text-4xl font-extrabold leading-[1.1] sm:text-5xl xl:text-6xl">
-              Ladakh Bike Trip 2027
-              <span className="block text-brand-400">is calling.</span>
-              <span className="flex items-center gap-3">
-                Will you answer?
-                {/* <Sparkles className="h-6 w-6 shrink-0 text-brand-400 xl:h-7 xl:w-7" /> */}
-              </span>
+            <h1 className="text-4xl font-extrabold leading-[1.1] sm:text-5xl xl:text-5xl">
+              Are you ready for real 
+              <span className="text-brand-400"> Ladakh bike trip adventure??</span>
             </h1>
             <p className="mt-4 text-sm font-medium text-slate-300 sm:text-base">
-              Where every mountain tells a story.
+              Your thrilling adventure is ready.
             </p>
 
             <ul className="mt-8 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
