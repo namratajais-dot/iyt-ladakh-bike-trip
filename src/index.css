@@ -1,1 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+
+  /* Page: deep ink with a hint of blue-grey */
+  --color-ink: #0b1019;
+  --color-panel: #151c29;
+  --color-line: #263044;
+
+  /* Brand: cobalt blue scale */
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #dce8ff;
+  --color-brand-200: #bcd3ff;
+  --color-brand-400: #7fa6ff;
+  --color-brand-500: #4a7dff;
+  --color-brand-600: #2f62f0;
+  --color-brand-700: #234bc4;
+}
+
+body {
+  background: #0b1019;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Budget slider */
+.range-blue {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+}
+.range-blue::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #2f62f0;
+  border: 3px solid #fff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+}
+.range-blue::-moz-range-thumb {
+  height: 14px;
+  width: 14px;
+  border-radius: 50%;
+  background: #2f62f0;
+  border: 3px solid #fff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+}
