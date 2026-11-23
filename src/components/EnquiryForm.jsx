@@ -1,4 +1,5 @@
 
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Send } from 'lucide-react'
 
@@ -38,6 +39,8 @@ function Field({ label, required, error, children }) {
 }
 
 export default function EnquiryForm({ onSuccess, initialValues }) {
+  const [submitError, setSubmitError] = useState('')
+
   const {
     register,
     handleSubmit,
@@ -46,10 +49,40 @@ export default function EnquiryForm({ onSuccess, initialValues }) {
     defaultValues: initialValues || {},
   })
 
+  // Submit enquiry to Express backend
   const onSubmit = async (data) => {
-    // Zoho API integration will be added here.
-    console.log('Enquiry:', data)
-    onSuccess?.(data)
+    setSubmitError('')
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/leads`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      )
+
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message || 'Unable to submit your enquiry. Please try again.'
+        )
+      }
+
+      // Show Thank You only after successful Zoho lead creation
+      onSuccess?.(data)
+
+    } catch (error) {
+      console.error('Enquiry submission error:', error)
+
+      setSubmitError(
+        error.message || 'Something went wrong. Please try again.'
+      )
+    }
   }
 
   return (
@@ -217,6 +250,13 @@ export default function EnquiryForm({ onSuccess, initialValues }) {
           Privacy Policy
         </a>. We’ll never spam you.
       </p>
+
+      {/* API submission error */}
+      {submitError && (
+        <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
+          {submitError}
+        </p>
+      )}
 
       <button
         type="submit"
